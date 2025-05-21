@@ -53,9 +53,9 @@ public class PlayerInteraction : MonoBehaviour
 
         if (!currentItem.CanInteract) { return; }
 
-        if (!inventory.HasSpace(currentItem.Weight)) { return; }
-
         if (!Input.GetKeyDown(KeyCode.Space)) { return; }
+
+        if (!inventory.HasSpace(currentItem.Weight)) { return; }
 
         if (currentItem.TryGetComponent(out FragileItem fragileItem))
         {

@@ -1,25 +1,18 @@
+using System;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    [SerializeField] private float carryLimit;
+    [SerializeField] private int carryLimit;
 
-    [SerializeField, Space] private float currentCarryAmount;
-    [SerializeField] private float currentValue;
+    [SerializeField, Space] private int currentCarryAmount;
+    [SerializeField] private int currentValue;
+
+    private bool firstItemWasAdded = false;
 
     private void Start()
     {
         Clear();
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Van") && currentValue > 0)
-        {
-            VanInventory van = other.GetComponent<VanInventory>();
-            van.DropItems(currentValue);
-            Clear();
-        }
     }
 
     private void Clear()
@@ -33,14 +26,28 @@ public class PlayerInventory : MonoBehaviour
         currentCarryAmount += item.Weight;
         currentValue += item.Value;
 
-        Debug.Log($"Item with weight = {item.Weight} and value = {item.Value} has been added to inventory");
+        if (!firstItemWasAdded)
+        {
+            LevelManager.Instance.StartCountdown();
+            firstItemWasAdded = true;
+        }
+    }
+
+    public void DropItemsToVan()
+    {
+        if (currentValue <= 0) { return; }
+
+        LevelManager.Instance.AddMoney(currentValue);
+
+        Clear();
+
+        // play sound - drop items
     }
 
     public bool HasSpace(float weight)
     {
         if (currentCarryAmount + weight > carryLimit)
         {
-            Debug.Log("Not enough space in inventory");
             // Display error text
             // play sound - error
             return false;

@@ -28,15 +28,19 @@ public class PlayerWrapping : MonoBehaviour
 
     private FragileItem currentWrappingItem;
 
+    private PlayerMovement movement;
     private PlayerInventory inventory;
 
     private void Awake()
     {
+        movement = GetComponent<PlayerMovement>();
         inventory = GetComponent<PlayerInventory>();
 
         barLength = barTransform.rect.width;
 
         barPositionRange = new Vector2(-barLength / 2, barLength / 2);
+
+        currentMissDelay = 0.1f;
     }
 
     private void Update()
@@ -48,7 +52,7 @@ public class PlayerWrapping : MonoBehaviour
             currentMissDelay -= Time.deltaTime;
             return;
         }
-        
+
         lineTransform.gameObject.SetActive(true);
         spotTransform.gameObject.SetActive(true);
 
@@ -81,12 +85,10 @@ public class PlayerWrapping : MonoBehaviour
 
                 if (wrapProgress >= 100)
                 {
-                    IsWrapping = false;
-
-                    wrappingPanel.SetActive(false);
-
                     currentWrappingItem.Pickup();
                     inventory.AddItem(currentWrappingItem);
+
+                    StopWrapping();
                 }
             }
             else
@@ -97,7 +99,7 @@ public class PlayerWrapping : MonoBehaviour
                 spotTransform.gameObject.SetActive(false);
 
                 lineTransform.localPosition = new Vector2(barPositionRange.x, lineTransform.localPosition.y);
-                
+
                 // play sound - miss
             }
 
@@ -118,6 +120,8 @@ public class PlayerWrapping : MonoBehaviour
     {
         currentWrappingItem = item;
 
+        movement.enabled = false;
+
         wrappingPanel.SetActive(true);
 
         wrapProgress = 0;
@@ -130,5 +134,16 @@ public class PlayerWrapping : MonoBehaviour
         // play sound - looped wrapping
 
         IsWrapping = true;
+    }
+
+    public void StopWrapping()
+    {
+        currentWrappingItem = null;
+
+        movement.enabled = true;
+
+        wrappingPanel.SetActive(false);
+
+        IsWrapping = false;
     }
 }
