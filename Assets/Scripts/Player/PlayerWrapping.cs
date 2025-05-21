@@ -20,6 +20,7 @@ public class PlayerWrapping : MonoBehaviour
 
     private float wrapProgress;
     private float barLength;
+    private float initialSpotLength;
     private float lineDirection;
     private bool lineIsMovingForward;
 
@@ -37,10 +38,9 @@ public class PlayerWrapping : MonoBehaviour
         inventory = GetComponent<PlayerInventory>();
 
         barLength = barTransform.rect.width;
+        initialSpotLength = spotTransform.rect.width;
 
         barPositionRange = new Vector2(-barLength / 2, barLength / 2);
-
-        currentMissDelay = 0.1f;
     }
 
     private void Update()
@@ -129,7 +129,11 @@ public class PlayerWrapping : MonoBehaviour
         lineDirection = 1;
         lineIsMovingForward = true;
 
+        spotTransform.sizeDelta = new Vector2(initialSpotLength, spotTransform.sizeDelta.y);
+
         GenerateRandomSpotPosition();
+
+        currentMissDelay = 0.01f;
 
         // play sound - looped wrapping
 
@@ -143,6 +147,8 @@ public class PlayerWrapping : MonoBehaviour
         movement.enabled = true;
 
         wrappingPanel.SetActive(false);
+
+        // stop sound - looped wrapping
 
         IsWrapping = false;
     }

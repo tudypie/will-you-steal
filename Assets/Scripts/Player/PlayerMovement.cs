@@ -22,6 +22,11 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    private void OnDisable()
+    {
+        rb.linearVelocity = Vector3.zero;
+    }
+
     private void FixedUpdate()
     {
         Movement();
