@@ -27,7 +27,7 @@ public class PlayerWrapping : MonoBehaviour
     private Vector2 barPositionRange;
     private Vector2 spotPositionRange;
 
-    private FragileItem currentWrappingItem;
+    private Item currentWrappingItem;
 
     private PlayerMovement movement;
     private PlayerInventory inventory;
@@ -46,6 +46,12 @@ public class PlayerWrapping : MonoBehaviour
     private void Update()
     {
         if (!IsWrapping) { return; }
+
+        if (currentWrappingItem == null)
+        {
+            StopWrapping();
+            return;
+        }
 
         if (currentMissDelay > 0)
         {
@@ -70,41 +76,38 @@ public class PlayerWrapping : MonoBehaviour
         float newLineX = lineTransform.localPosition.x + lineSpeed * lineDirection * Time.deltaTime;
         lineTransform.localPosition = new Vector2(newLineX, lineTransform.localPosition.y);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!Input.GetKeyDown(KeyCode.Space)) { return; }
+
+        if (newLineX >= spotPositionRange.x && newLineX <= spotPositionRange.y)
         {
-            if (newLineX >= spotPositionRange.x && newLineX <= spotPositionRange.y)
+            wrapProgress += progressPerSkillCheck;
+            wrapProgressFillBar.fillAmount = wrapProgress / 100;
+
+            float newSpotWidth = spotTransform.rect.width - spotSizeDecrease;
+            spotTransform.sizeDelta = new Vector2(newSpotWidth, spotTransform.sizeDelta.y);
+
+            // play sound - correct
+
+            if (wrapProgress >= 100)
             {
-                wrapProgress += progressPerSkillCheck;
-
-                wrapProgressFillBar.fillAmount = wrapProgress / 100;
-
-                float newSpotWidth = spotTransform.rect.width - spotSizeDecrease;
-                spotTransform.sizeDelta = new Vector2(newSpotWidth, spotTransform.sizeDelta.y);
-
-                // play sound - correct
-
-                if (wrapProgress >= 100)
-                {
-                    currentWrappingItem.Pickup();
-                    inventory.AddItem(currentWrappingItem);
-
-                    StopWrapping();
-                }
+                currentWrappingItem.Pickup();
+                StopWrapping();
             }
-            else
-            {
-                currentMissDelay = missDelay;
-
-                lineTransform.gameObject.SetActive(false);
-                spotTransform.gameObject.SetActive(false);
-
-                lineTransform.localPosition = new Vector2(barPositionRange.x, lineTransform.localPosition.y);
-
-                // play sound - miss
-            }
-
-            GenerateRandomSpotPosition();
         }
+        else
+        {
+            currentMissDelay = missDelay;
+
+            lineTransform.gameObject.SetActive(false);
+            spotTransform.gameObject.SetActive(false);
+
+            lineTransform.localPosition = new Vector2(barPositionRange.x, lineTransform.localPosition.y);
+
+            // play sound - miss
+        }
+
+        GenerateRandomSpotPosition();
+        
     }
 
     private void GenerateRandomSpotPosition()
@@ -116,15 +119,15 @@ public class PlayerWrapping : MonoBehaviour
         spotPositionRange = new Vector2(randomX - spotTransform.rect.width / 2, randomX + spotTransform.rect.width / 2);
     }
 
-    public void StartWrapping(FragileItem item)
+    public void StartWrapping(Item item)
     {
         currentWrappingItem = item;
 
         movement.enabled = false;
 
-        wrappingPanel.SetActive(true);
-
         wrapProgress = 0;
+        wrapProgressFillBar.fillAmount = 0;
+        wrappingPanel.SetActive(true);
 
         lineDirection = 1;
         lineIsMovingForward = true;
@@ -147,6 +150,8 @@ public class PlayerWrapping : MonoBehaviour
         movement.enabled = true;
 
         wrappingPanel.SetActive(false);
+        wrapProgress = 0;
+        wrapProgressFillBar.fillAmount = 0;
 
         // stop sound - looped wrapping
 

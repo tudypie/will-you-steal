@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
@@ -7,15 +8,6 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private float raycastSphereRadius = 2;
 
     private Item currentItem;
-
-    private PlayerInventory inventory;
-    private PlayerWrapping wrapping;
-
-    private void Awake()
-    {
-        inventory = GetComponent<PlayerInventory>();
-        wrapping = GetComponent<PlayerWrapping>();
-    }
 
     private void Update()
     {
@@ -29,50 +21,51 @@ public class PlayerInteraction : MonoBehaviour
 
         if (hits.Length > 0)
         {
-            currentItem = hits[0].GetComponent<Item>();
+            float closestDistance = float.MaxValue;
+            Item closestItem = null;
 
-            if (currentItem.CanInteract)
+            foreach (Collider hit in hits)
             {
+                Item item = hit.GetComponentInParent<Item>();
+
+                float distance = Vector3.Distance(raycastPoint.position, hit.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestItem = item;
+                }
+            }
+
+            if (currentItem != closestItem)
+            {
+                if (currentItem != null)
+                {
+                    currentItem.LoseFocus();
+                }
+
+                currentItem = closestItem;
                 currentItem.Focus();
             }
-            else
-            {
-                currentItem.LoseFocus();
-            }
         }
-        else if (currentItem != null)
+        else if (hits.Length == 0 && currentItem != null)
         {
             currentItem.LoseFocus();
             currentItem = null;
         }
     }
 
+
     private void HandleInput()
     {
-        if (currentItem == null) { return; }
-
-        if (!currentItem.CanInteract) { return; }
-
-        if (!Input.GetKeyDown(KeyCode.Space)) { return; }
-
-        if (!inventory.HasSpace(currentItem.Weight)) { return; }
-
-        if (currentItem.TryGetComponent(out FragileItem fragileItem))
+        if (Input.GetKeyDown(KeyCode.Space) && currentItem != null)
         {
-            currentItem.CanInteract = false;
-            wrapping.StartWrapping(fragileItem);
-        }
-        else
-        {
-            currentItem.Pickup();
-            inventory.AddItem(currentItem);
-            currentItem = null;
+            currentItem.Interact();
         }
     }
 
     private void OnDrawGizmos()
     {
-        if (raycastPoint == null) return;
+        if (raycastPoint == null) { return; }
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(raycastPoint.position, raycastSphereRadius);

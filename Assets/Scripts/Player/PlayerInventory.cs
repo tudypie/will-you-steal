@@ -1,18 +1,23 @@
 using System;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    [SerializeField] private TMP_Text inventorySpaceText;
+
     [SerializeField] private int carryLimit;
 
-    [SerializeField, Space] private int currentCarryAmount;
-    [SerializeField] private int currentValue;
+    private int currentCarryAmount;
+    private int currentValue;
 
     private bool firstItemWasAdded = false;
 
-    private void Start()
+    private void Awake()
     {
         Clear();
+        UpdateUI();
     }
 
     private void Clear()
@@ -21,10 +26,17 @@ public class PlayerInventory : MonoBehaviour
         currentValue = 0;
     }
 
-    public void AddItem(Item item)
+    private void UpdateUI()
     {
-        currentCarryAmount += item.Weight;
-        currentValue += item.Value;
+        inventorySpaceText.text = $"{currentCarryAmount}/{carryLimit} kg";
+    }
+
+    public void AddItem(int weight, int value)
+    {
+        currentCarryAmount += weight;
+        currentValue += value;
+
+        UpdateUI();
 
         if (!firstItemWasAdded)
         {
@@ -44,11 +56,11 @@ public class PlayerInventory : MonoBehaviour
         // play sound - drop items
     }
 
-    public bool HasSpace(float weight)
+    public bool HasSpace(int weight)
     {
         if (currentCarryAmount + weight > carryLimit)
         {
-            // Display error text
+            // display error text
             // play sound - error
             return false;
         }

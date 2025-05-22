@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6587271017277340474}
   - component: {fileID: 6068221990393179761}
   - component: {fileID: 6160254775173266922}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ShortWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
