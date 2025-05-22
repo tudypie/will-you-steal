@@ -1,11 +1,14 @@
-using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private TMP_Text inventorySpaceText;
+    [SerializeField] private TMP_Text playerCanvasText;
+
+    private Animator playerCanvasTextAnim;
+
+    [SerializeField] private Transform guidingArrowTransform;
 
     [SerializeField] private int carryLimit;
 
@@ -14,10 +17,29 @@ public class PlayerInventory : MonoBehaviour
 
     private bool firstItemWasAdded = false;
 
+    private Transform vanTransform;
+
     private void Awake()
     {
         Clear();
         UpdateUI();
+
+        playerCanvasText.alpha = 0;
+        playerCanvasTextAnim = playerCanvasText.GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        vanTransform = FindFirstObjectByType<Van>().transform;
+    }
+
+    private void Update()
+    {
+        if (currentCarryAmount >= carryLimit)
+        {
+            guidingArrowTransform.LookAt(vanTransform);
+            guidingArrowTransform.eulerAngles = new Vector3(0, guidingArrowTransform.eulerAngles.y, 0);
+        }      
     }
 
     private void Clear()
@@ -31,6 +53,12 @@ public class PlayerInventory : MonoBehaviour
         inventorySpaceText.text = $"{currentCarryAmount}/{carryLimit} kg";
     }
 
+    private void PlayTextAnimation()
+    {
+        playerCanvasTextAnim.Play("TextIdle", -1, 0f);
+        playerCanvasTextAnim.Play("TextPopup", -1, 0f);
+    }
+
     public void AddItem(int weight, int value)
     {
         currentCarryAmount += weight;
@@ -38,10 +66,19 @@ public class PlayerInventory : MonoBehaviour
 
         UpdateUI();
 
+        playerCanvasText.text = $"+ {weight} kg";
+        playerCanvasText.color = Color.yellow;
+        PlayTextAnimation();
+
         if (!firstItemWasAdded)
         {
             LevelManager.Instance.StartCountdown();
             firstItemWasAdded = true;
+        }
+
+        if (currentCarryAmount >= carryLimit)
+        {
+            guidingArrowTransform.gameObject.SetActive(true);
         }
     }
 
@@ -53,7 +90,13 @@ public class PlayerInventory : MonoBehaviour
 
         Clear();
 
-        // play sound - drop items
+        guidingArrowTransform.gameObject.SetActive(false);
+
+        playerCanvasText.text = "$$$";
+        playerCanvasText.color = Color.green;  
+        PlayTextAnimation();
+
+        // play sound - drop items (cash)
     }
 
     public bool HasSpace(int weight)
