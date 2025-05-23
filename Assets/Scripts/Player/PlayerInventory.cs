@@ -88,13 +88,15 @@ public class PlayerInventory : MonoBehaviour
 
         LevelManager.Instance.AddMoney(currentValue);
 
+        playerCanvasText.text = $"+{currentValue} $";
+        playerCanvasText.color = Color.green;  
+        PlayTextAnimation();
+
         Clear();
 
         guidingArrowTransform.gameObject.SetActive(false);
 
-        playerCanvasText.text = "$$$";
-        playerCanvasText.color = Color.green;  
-        PlayTextAnimation();
+
 
         // play sound - drop items (cash)
     }

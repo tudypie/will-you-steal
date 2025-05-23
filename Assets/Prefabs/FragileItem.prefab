@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1557722363763099350, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2684630106648985892, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
       propertyPath: m_Size.x
       value: 0.4804508
@@ -59,6 +63,10 @@ PrefabInstance:
     - target: {fileID: 5420852699394627227, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
       propertyPath: m_Name
       value: FragileItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424375645424943173, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
+      propertyPath: weight
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5424375645424943173, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
       propertyPath: isFragile

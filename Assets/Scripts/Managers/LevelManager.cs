@@ -21,6 +21,8 @@ public class LevelManager : MonoBehaviour
 
     private Van van;
 
+    public bool CountdownHasStarted { get { return countdownHasStarted; }}
+
     public static LevelManager Instance;
 
     private void Awake()

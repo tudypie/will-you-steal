@@ -27,7 +27,7 @@ public class Item : MonoBehaviour
         outline = GetComponentInChildren<Outline>();
         outline.enabled = false;
 
-        weightText.text = weight.ToString();
+        weightText.text = $"{weight} kg / {value} $";
         weightText.enabled = false;
 
         noSpaceText.enabled = false;
