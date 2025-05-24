@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CollisionCheck : MonoBehaviour
 {
-    [SerializeField] private LayerMask collisionLayer;
+    public LayerMask collisionLayer;
 
     public event Action OnCollision;
 

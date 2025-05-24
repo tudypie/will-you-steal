@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -8,6 +9,7 @@ public class Item : MonoBehaviour
     [SerializeField] private Transform canvasTransform;
     [SerializeField] private TMP_Text weightText;
     [SerializeField] private TMP_Text noSpaceText;
+    [SerializeField] private Color outlineColor;
 
     [SerializeField, Space] private int weight;
     [SerializeField] private int value;
@@ -22,14 +24,39 @@ public class Item : MonoBehaviour
 
     private void Awake()
     {
-        collisionCheck = GetComponentInChildren<CollisionCheck>();
+        //modelTransform = GetComponentInChildren<MeshRenderer>().transform;
 
-        outline = GetComponentInChildren<Outline>();
+        if (modelTransform.TryGetComponent(out Outline modelOutline))
+        {
+            outline = modelOutline;
+        }
+        else
+        {
+            outline = modelTransform.AddComponent<Outline>();
+        }
+
+        if (modelTransform.TryGetComponent(out CollisionCheck modelCollision))
+        {
+            collisionCheck = modelCollision;
+        }
+        else
+        {
+            collisionCheck = modelTransform.AddComponent<CollisionCheck>();
+        }
+
+        if (!modelTransform.TryGetComponent(out Rigidbody rb))
+        {
+            modelTransform.AddComponent<Rigidbody>();
+        }
+
+        outline.OutlineColor = outlineColor;
         outline.enabled = false;
+
+        collisionCheck.collisionLayer = LayerMask.GetMask("Ground");
+        modelTransform.gameObject.layer = LayerMask.NameToLayer("Interactable");
 
         weightText.text = $"{weight} kg / {value} $";
         weightText.enabled = false;
-
         noSpaceText.enabled = false;
 
         canvasOffsetY = canvasTransform.position.y - modelTransform.position.y;

@@ -8,9 +8,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 455807382885254426, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1557722363763099350, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
       propertyPath: m_IsKinematic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2192579863104523576, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2684630106648985892, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
       propertyPath: m_Size.x
@@ -60,6 +68,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4110376442880383007, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4708126507028980574, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5420852699394627227, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
       propertyPath: m_Name
       value: FragileItem
@@ -72,10 +88,22 @@ PrefabInstance:
       propertyPath: isFragile
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5424375645424943173, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
+      propertyPath: outlineColor.g
+      value: 0.84313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424375645424943173, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
+      propertyPath: outlineColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5529794610105752807, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: ec71518a675c6c94aaf25df3833eac56, type: 2}
+    - target: {fileID: 6955779842836051104, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.46
+      objectReference: {fileID: 0}
     - target: {fileID: 8039142096773967616, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
       propertyPath: outlineColor.g
       value: 0.84313726
