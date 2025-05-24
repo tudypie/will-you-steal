@@ -8,6 +8,7 @@ public class PlayerFollow : MonoBehaviour
 
     private void Awake()
     {
+        offset = transform.position;
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
