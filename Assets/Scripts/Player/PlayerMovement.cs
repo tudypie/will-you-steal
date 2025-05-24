@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 move;
 
     private Rigidbody rb;
+    private Animator animator;
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -20,20 +21,39 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void OnDisable()
     {
         rb.linearVelocity = Vector3.zero;
+        animator.SetBool("IsMoving", false);
+    }
+
+    private void Update()
+    {
+        HandleAnimator();
     }
 
     private void FixedUpdate()
     {
-        Movement();
+        HandleMovement();
         // HandleStepsSound(); - play sound
     }
 
-    private void Movement()
+    private void HandleAnimator()
+    {
+        if (rb.linearVelocity != Vector3.zero)
+        {
+            animator.SetBool("IsMoving", true);
+        }
+        else
+        {
+            animator.SetBool("IsMoving", false);
+        }
+    }
+
+    private void HandleMovement()
     {
         Vector3 camForward = Camera.main.transform.forward;
         Vector3 camRight = Camera.main.transform.right;
