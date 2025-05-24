@@ -134,4 +134,6 @@ public class Item : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    public void SetCanInteract(bool value) => canInteract = value;
 }

@@ -18240,7 +18240,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: ec71518a675c6c94aaf25df3833eac56, type: 2}
     - target: {fileID: 3136093180050455921, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30.359976
+      value: 29.859976
       objectReference: {fileID: 0}
     - target: {fileID: 3136093180050455921, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22773,7 +22773,7 @@ Transform:
   m_GameObject: {fileID: 733515201}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.0000004768371, z: -0, w: 1}
-  m_LocalPosition: {x: 30.359976, y: 0.5, z: 30}
+  m_LocalPosition: {x: 29.859976, y: 0.5, z: 30}
   m_LocalScale: {x: 1.190702, y: 1, z: 0.9795475}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -28094,9 +28094,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: value
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: isFragile
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
       propertyPath: modelTransform
       value: 
       objectReference: {fileID: 7837984044856351549}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: outlineColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: outlineColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5033818464175434983, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
       propertyPath: m_Name
       value: FragileItem (17)
@@ -32654,9 +32670,21 @@ PrefabInstance:
       value: 1.774
       objectReference: {fileID: 0}
     - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: isFragile
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
       propertyPath: modelTransform
       value: 
       objectReference: {fileID: 1151388028436402742}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: outlineColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: outlineColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5033818464175434983, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
       propertyPath: m_Name
       value: FragileItem (13)
@@ -36185,12 +36213,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
       propertyPath: weight
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: isFragile
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
       propertyPath: modelTransform
       value: 
       objectReference: {fileID: 4327053808523423024}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: outlineColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: outlineColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5033818464175434983, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
       propertyPath: m_Name
       value: FragileItem (20)
@@ -58412,9 +58452,25 @@ PrefabInstance:
       value: 1.832
       objectReference: {fileID: 0}
     - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: isFragile
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
       propertyPath: modelTransform
       value: 
       objectReference: {fileID: 1151388028701140521}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: outlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: outlineColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: outlineColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5033818464175434983, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
       propertyPath: m_Name
       value: FragileItem (16)
@@ -64748,9 +64804,25 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: isFragile
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
       propertyPath: modelTransform
       value: 
       objectReference: {fileID: 2748409539098242474}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: outlineColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: outlineColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5018781430630414905, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
+      propertyPath: outlineColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5033818464175434983, guid: 758a032d0a777d84a957839b32d4e0b9, type: 3}
       propertyPath: m_Name
       value: FragileItem

@@ -47,6 +47,12 @@ public class PlayerWrapping : MonoBehaviour
     {
         if (!IsWrapping) { return; }
 
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Q))
+        {
+            currentWrappingItem.SetCanInteract(true);
+            StopWrapping();
+        }
+
         if (currentWrappingItem == null)
         {
             StopWrapping();
