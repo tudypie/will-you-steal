@@ -14,6 +14,7 @@ Textures from ambientcg.com
 
 Museum models from The Cleveland Museum of Art (https://sketchfab.com/clevelandart)
 
-Sound Effects from Pixabay
+
+Sound Effects from Pixabay and Zapsplat
 
 Music by Ihor Koliako from Pixabay
