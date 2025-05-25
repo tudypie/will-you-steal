@@ -30,8 +30,8 @@ As the timer hits zero, the police arrive. If you’re not at the van in time, y
 ## 🎮 Controls
 
 - `WASD` – Move  
-- `Space` – Interact / Pick up / Wrap items
-- `Q` - Stop interacting with fragile item
+- `Space` – Interact
+- `Q` - Stop interacting
 - `R` - Restart
 
 ---
