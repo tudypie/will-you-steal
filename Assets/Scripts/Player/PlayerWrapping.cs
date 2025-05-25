@@ -3,8 +3,7 @@ using UnityEngine.UI;
 
 public class PlayerWrapping : MonoBehaviour
 {
-    public bool IsWrapping = false;
-
+    [Header("References")]
     [SerializeField] private GameObject wrappingPanel;
     [SerializeField] private RectTransform barTransform;
     [SerializeField] private RectTransform lineTransform;
@@ -12,18 +11,17 @@ public class PlayerWrapping : MonoBehaviour
     [SerializeField] private Image wrapProgressFillBar;
     [SerializeField] private AudioSource wrappingSound;
 
+    [Header("Settings")]
     [SerializeField, Space] private float progressPerSkillCheck;
     [SerializeField] private float lineSpeed;
     [SerializeField] private float spotSizeDecrease;
     [SerializeField] private float missDelay;
 
-    private float currentMissDelay = 0;
+    private float currentMissDelay, wrapProgress, barLength, initialSpotLength;
+    private int lineDirection;
 
-    private float wrapProgress;
-    private float barLength;
-    private float initialSpotLength;
-    private float lineDirection;
     private bool lineIsMovingForward;
+    private bool isWrapping;
 
     private Vector2 barPositionRange;
     private Vector2 spotPositionRange;
@@ -31,12 +29,14 @@ public class PlayerWrapping : MonoBehaviour
     private Item currentWrappingItem;
 
     private PlayerMovement movement;
-    private PlayerInventory inventory;
 
     private void Awake()
     {
         movement = GetComponent<PlayerMovement>();
-        inventory = GetComponent<PlayerInventory>();
+
+        // Initialize variables
+        currentMissDelay = 0;
+        isWrapping = false;
 
         barLength = barTransform.rect.width;
         initialSpotLength = spotTransform.rect.width;
@@ -46,20 +46,23 @@ public class PlayerWrapping : MonoBehaviour
 
     private void Update()
     {
-        if (!IsWrapping) { return; }
+        if (!isWrapping) { return; }
 
+        // Stop interacting if player presses ESC or Q
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Q))
         {
             currentWrappingItem.SetCanInteract(true);
             StopWrapping();
         }
 
+        // Stop interacting if item broke while interacting (fell on ground)
         if (currentWrappingItem == null)
         {
             StopWrapping();
             return;
         }
 
+        // Wait a delay if player misssed skill check
         if (currentMissDelay > 0)
         {
             currentMissDelay -= Time.deltaTime;
@@ -69,6 +72,7 @@ public class PlayerWrapping : MonoBehaviour
         lineTransform.gameObject.SetActive(true);
         spotTransform.gameObject.SetActive(true);
 
+        // Check if vertical line reached min/max position and change movement direction
         if (lineTransform.localPosition.x >= barPositionRange.y && lineIsMovingForward)
         {
             lineDirection = -1;
@@ -80,16 +84,20 @@ public class PlayerWrapping : MonoBehaviour
             lineIsMovingForward = true;
         }
 
+        // Calculate next position of vertical line
         float newLineX = lineTransform.localPosition.x + lineSpeed * lineDirection * Time.deltaTime;
         lineTransform.localPosition = new Vector2(newLineX, lineTransform.localPosition.y);
 
-        if (!Input.GetKeyDown(KeyCode.Space) && !Input.GetKeyDown(KeyCode.E) && !Input.GetMouseButtonDown(0)) { return; }
+        // Wait for player input
+        if (!Input.GetKeyDown(KeyCode.Space)) { return; }
 
+        // If horizontal line is in spot range increase progress
         if (newLineX >= spotPositionRange.x && newLineX <= spotPositionRange.y)
         {
             wrapProgress += progressPerSkillCheck;
             wrapProgressFillBar.fillAmount = wrapProgress / 100;
 
+            // Decrease spot width to make it harder
             float newSpotWidth = spotTransform.rect.width - spotSizeDecrease;
             spotTransform.sizeDelta = new Vector2(newSpotWidth, spotTransform.sizeDelta.y);
 
@@ -132,6 +140,7 @@ public class PlayerWrapping : MonoBehaviour
 
         movement.enabled = false;
 
+        // Initialize wrapping UI
         wrapProgress = 0;
         wrapProgressFillBar.fillAmount = 0;
         wrappingPanel.SetActive(true);
@@ -140,14 +149,14 @@ public class PlayerWrapping : MonoBehaviour
         lineIsMovingForward = true;
 
         spotTransform.sizeDelta = new Vector2(initialSpotLength, spotTransform.sizeDelta.y);
-
         GenerateRandomSpotPosition();
 
+        // Set a small delay to prevent stacked input
         currentMissDelay = 0.01f;
 
         wrappingSound.Play();
 
-        IsWrapping = true;
+        isWrapping = true;
     }
 
     public void StopWrapping()
@@ -162,6 +171,6 @@ public class PlayerWrapping : MonoBehaviour
 
         wrappingSound.Stop();
 
-        IsWrapping = false;
+        isWrapping = false;
     }
 }

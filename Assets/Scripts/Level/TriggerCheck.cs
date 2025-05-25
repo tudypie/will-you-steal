@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TriggerCheck : MonoBehaviour
 {
-    [SerializeField] private LayerMask triggerLayer;
+    public LayerMask triggerLayer;
 
     public event Action OnTrigger;
 

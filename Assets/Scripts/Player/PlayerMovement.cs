@@ -38,7 +38,6 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         HandleMovement();
-        // HandleStepsSound(); - play sound
     }
 
     private void HandleAnimator()
@@ -55,31 +54,31 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
+        // Get camera-relative movement directions
         Vector3 camForward = Camera.main.transform.forward;
         Vector3 camRight = Camera.main.transform.right;
 
+        // Flatten to horizontal plane
         camForward.y = 0;
         camRight.y = 0;
         camForward.Normalize();
         camRight.Normalize();
 
+        // Calculate movement direction based on input and target velocity
         Vector3 inputDirection = camForward * move.y + camRight * move.x;
-
         Vector3 targetVelocity = inputDirection * moveSpeed;
-
         targetVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
 
-        Vector3 currentVelocity = rb.linearVelocity;
-        Vector3 velocityChange = targetVelocity - currentVelocity;
-
-        velocityChange = Vector3.ClampMagnitude(velocityChange, maxVelocity);
-
+        // Apply velocity change with clamping
+        Vector3 velocityChange = Vector3.ClampMagnitude(targetVelocity - rb.linearVelocity, maxVelocity);
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
 
+        // Rotate player toward movement direction
         if (inputDirection.sqrMagnitude > 0.001f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(inputDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
+
     }
 }

@@ -5,37 +5,34 @@ public class PlayerInventory : MonoBehaviour
 {
     [SerializeField] private TMP_Text inventorySpaceText;
     [SerializeField] private TMP_Text playerCanvasText;
-
-    private Animator playerCanvasTextAnim;
-
     [SerializeField] private Transform guidingArrowTransform;
+    [SerializeField] private int weightCarryLimit;
 
-    [SerializeField] private int carryLimit;
-
-    private int currentCarryAmount;
+    private int currentWeight;
     private int currentValue;
 
     private bool firstItemWasAdded = false;
 
     private Transform vanTransform;
+    private Animator playerCanvasTextAnim;
 
     private void Awake()
     {
+        // Initialize inventory
         Clear();
-        UpdateUI();
+        SetInventorySpaceText();
 
+        // Initialize player text
         playerCanvasText.alpha = 0;
         playerCanvasTextAnim = playerCanvasText.GetComponent<Animator>();
-    }
 
-    private void Start()
-    {
         vanTransform = FindFirstObjectByType<Van>().transform;
     }
 
     private void Update()
     {
-        if (currentCarryAmount >= carryLimit)
+        // Update the arrow pointing towards the van
+        if (currentWeight >= weightCarryLimit)
         {
             guidingArrowTransform.LookAt(vanTransform);
             guidingArrowTransform.eulerAngles = new Vector3(0, guidingArrowTransform.eulerAngles.y, 0);
@@ -44,13 +41,13 @@ public class PlayerInventory : MonoBehaviour
 
     private void Clear()
     {
-        currentCarryAmount = 0;
+        currentWeight = 0;
         currentValue = 0;
     }
 
-    private void UpdateUI()
+    private void SetInventorySpaceText()
     {
-        inventorySpaceText.text = $"{currentCarryAmount}/{carryLimit} kg";
+        inventorySpaceText.text = $"{currentWeight}/{weightCarryLimit} kg";
     }
 
     private void PlayTextAnimation()
@@ -61,22 +58,25 @@ public class PlayerInventory : MonoBehaviour
 
     public void AddItem(int weight, int value)
     {
-        currentCarryAmount += weight;
+        currentWeight += weight;
         currentValue += value;
 
-        UpdateUI();
+        SetInventorySpaceText();
 
+        // Set text settings and display it
         playerCanvasText.text = $"+ {weight} kg";
         playerCanvasText.color = Color.yellow;
         PlayTextAnimation();
 
+        // Start the countdown if it's the first item
         if (!firstItemWasAdded)
         {
             LevelManager.Instance.StartCountdown();
             firstItemWasAdded = true;
         }
 
-        if (currentCarryAmount >= carryLimit)
+        // Activate an arrow pointing towards the van when weight limit is reached
+        if (currentWeight >= weightCarryLimit)
         {
             guidingArrowTransform.gameObject.SetActive(true);
         }
@@ -87,25 +87,23 @@ public class PlayerInventory : MonoBehaviour
         if (currentValue <= 0) { return; }
 
         LevelManager.Instance.AddMoney(currentValue);
+        AudioPlayer.Instance.PlaySoundEffect("money");
 
+        // Set text settings and display it
         playerCanvasText.text = $"+{currentValue} $";
         playerCanvasText.color = Color.green;  
         PlayTextAnimation();
 
+        // Reset inventory stats
         Clear();
-        UpdateUI();
-
+        SetInventorySpaceText();
         guidingArrowTransform.gameObject.SetActive(false);
-
-        AudioPlayer.Instance.PlaySoundEffect("money");
     }
 
     public bool HasSpace(int weight)
     {
-        if (currentCarryAmount + weight > carryLimit)
+        if (currentWeight + weight > weightCarryLimit)
         {
-            // display error text
-            // play sound - error
             return false;
         }
 

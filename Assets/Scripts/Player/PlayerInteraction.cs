@@ -17,10 +17,14 @@ public class PlayerInteraction : MonoBehaviour
 
     private void HandleRaycast()
     {
+        // Create a sphere in front of player
         Collider[] hits = Physics.OverlapSphere(raycastPoint.position, raycastSphereRadius, interactionMask);
 
+        // If there are any items in the sphere
         if (hits.Length > 0)
         {
+            // Calculate distance for each item and find minimum
+
             float closestDistance = float.MaxValue;
             Item closestItem = null;
 
@@ -36,19 +40,22 @@ public class PlayerInteraction : MonoBehaviour
                 }
             }
 
+            // If closest item is a new one
             if (currentItem != closestItem)
             {
+                // Stop focusing on previous item
                 if (currentItem != null)
                 {
                     currentItem.LoseFocus();
                 }
 
+                // Set new current item and focus
                 currentItem = closestItem;
                 currentItem.Focus();
             }
         }
         else if (hits.Length == 0 && currentItem != null)
-        {
+        {   
             currentItem.LoseFocus();
             currentItem = null;
         }
@@ -57,14 +64,16 @@ public class PlayerInteraction : MonoBehaviour
 
     private void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0) && currentItem != null)
+        if (Input.GetKeyDown(KeyCode.Space) && currentItem != null)
         {
             currentItem.Interact();
         }
     }
 
     private void OnDrawGizmos()
-    {
+    {   
+        // Draw a debug gizmos to view the sphere in editor
+
         if (raycastPoint == null) { return; }
 
         Gizmos.color = Color.yellow;

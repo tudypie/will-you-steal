@@ -33,6 +33,7 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
+        // Singleton
         if (Instance == null)
         {
             Instance = this;
@@ -42,17 +43,15 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        timer = countdownStartingValue;
+        van = FindFirstObjectByType<Van>();
 
+        // Initialize timer
+        timer = countdownStartingValue;
         SetCountdownText();
 
+        // Initialize buttons
         restartButton.onClick.AddListener(Restart);
         quitButton.onClick.AddListener(Quit);
-    }
-
-    private void Start()
-    {
-        van = FindFirstObjectByType<Van>();
     }
 
     private void Update()
@@ -71,10 +70,11 @@ public class LevelManager : MonoBehaviour
     {
         if (!countdownHasStarted) { return; }
 
+        // Update timer
         timer -= Time.deltaTime;
-
         SetCountdownText();
 
+        // Make police siren volume increase exponentially
         float t = 1f - (timer / countdownStartingValue);
         policeSirenAudio.volume = 0.5f * Mathf.Pow(t, 3);
 
@@ -93,10 +93,12 @@ public class LevelManager : MonoBehaviour
     {
         levelHasEnded = true;
 
+        // Disable player scripts
         PlayerManager.Wrapping.StopWrapping();
         PlayerManager.Movement.enabled = false;
         PlayerManager.Interaction.enabled = false;
 
+        // Win or lose condition
         if (van.PlayerIsNearVan)
         {
             winPanel.SetActive(true);

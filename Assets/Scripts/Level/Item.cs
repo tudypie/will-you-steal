@@ -17,7 +17,7 @@ public class Item : MonoBehaviour
 
     [SerializeField, Space] private bool canInteract = true;
     [SerializeField] private bool isFragile = false;
-    [SerializeField] private bool kinematicRb = false;
+    [SerializeField] private bool isRbKinematic = false;
 
     private float canvasOffsetY;
 
@@ -26,54 +26,51 @@ public class Item : MonoBehaviour
 
     private void Awake()
     {
-        //modelTransform = GetComponentInChildren<MeshRenderer>().transform;
+        // Add missing components to the model:
 
-        if (modelTransform.TryGetComponent(out Outline modelOutline))
-        {
-            outline = modelOutline;
-        }
-        else
-        {
-            outline = modelTransform.AddComponent<Outline>();
-        }
-
-        if (modelTransform.TryGetComponent(out CollisionCheck modelCollision))
-        {
-            collisionCheck = modelCollision;
-        }
-        else
-        {
-            collisionCheck = modelTransform.AddComponent<CollisionCheck>();
-        }
-
+        // Rigidbody
         if (!modelTransform.TryGetComponent(out Rigidbody rb))
         {
             modelTransform.AddComponent<Rigidbody>();
-            modelTransform.GetComponent<Rigidbody>().isKinematic = kinematicRb;
         }
 
-        if (isFragile)
+        // Outline
+        if (!modelTransform.TryGetComponent(out Outline modelOutline))
         {
-            outlineColor = Color.yellow;
-        }
-        else
-        {
-            outlineColor = Color.green;
+            modelTransform.AddComponent<Outline>();
+            outline = modelOutline;
         }
 
+        // Collision Check
+        if (!modelTransform.TryGetComponent(out CollisionCheck col))
+        {
+            modelTransform.AddComponent<CollisionCheck>();
+            collisionCheck = col;
+        }
+
+        // Setup Rigidbody
+        modelTransform.GetComponent<Rigidbody>().isKinematic = isRbKinematic;
+
+        // Setup outline settings
+        if (outline == null) { outline = modelTransform.GetComponent<Outline>(); }
+
+        outlineColor = isFragile ? Color.yellow : Color.green;
         outline.OutlineColor = outlineColor;
-        outline.OutlineMode = Outline.Mode.OutlineVisible;
         outline.OutlineWidth = 1.2f;
+        outline.OutlineMode = Outline.Mode.OutlineVisible;
         outline.enabled = false;
+
+        // Setup layers
+        if (collisionCheck == null) { collisionCheck = modelTransform.GetComponent<CollisionCheck>(); }
 
         collisionCheck.collisionLayer = LayerMask.GetMask("Ground");
         modelTransform.gameObject.layer = LayerMask.NameToLayer("Interactable");
 
+        // Initialize UI
         statsText.text = $"{weight} kg / {value} $";
         statsText.enabled = false;
         noSpaceText.enabled = false;
         interactIcon.SetActive(false);
-
         canvasOffsetY = canvasTransform.position.y - modelTransform.position.y;
     }
 
@@ -99,9 +96,8 @@ public class Item : MonoBehaviour
     }
 
     private void OnTouchGround()
-    {
+    {   
         AudioPlayer.Instance.PlaySoundEffect("break");
-
         DisableItem();
     }
 
@@ -127,13 +123,10 @@ public class Item : MonoBehaviour
 
     public void LoseFocus()
     {
-        if (modelTransform == null) { return; }
-
         interactIcon.SetActive(false);
-
-        //outline.enabled = false;
-        //statsText.enabled = false;
-        //noSpaceText.enabled = false;
+        /*outline.enabled = false;
+        statsText.enabled = false;
+        noSpaceText.enabled = false;*/
     }
 
     public void Interact()

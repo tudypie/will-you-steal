@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
+        // Initialize buttons
         playButton.onClick.AddListener(OnPlayClick);
         quitButton.onClick.AddListener(OnQuitClick);
     }

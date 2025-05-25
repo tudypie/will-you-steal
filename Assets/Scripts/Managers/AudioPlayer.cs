@@ -18,6 +18,7 @@ public class AudioPlayer : MonoBehaviour
 
     private void Awake()
     {
+        // Singleton
         if (Instance == null)
         {
             Instance = this;
@@ -32,6 +33,7 @@ public class AudioPlayer : MonoBehaviour
 
     public void PlaySoundEffect(string name)
     {
+        // Search for sound effect in list and play it
         for (int i = 0; i < soundEffects.Length; i++)
         {
             if (soundEffects[i].name == name)
