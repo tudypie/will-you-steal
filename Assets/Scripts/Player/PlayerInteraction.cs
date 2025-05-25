@@ -57,7 +57,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && currentItem != null)
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0) && currentItem != null)
         {
             currentItem.Interact();
         }

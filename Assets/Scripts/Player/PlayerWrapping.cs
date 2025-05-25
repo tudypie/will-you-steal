@@ -10,6 +10,7 @@ public class PlayerWrapping : MonoBehaviour
     [SerializeField] private RectTransform lineTransform;
     [SerializeField] private RectTransform spotTransform;
     [SerializeField] private Image wrapProgressFillBar;
+    [SerializeField] private AudioSource wrappingSound;
 
     [SerializeField, Space] private float progressPerSkillCheck;
     [SerializeField] private float lineSpeed;
@@ -82,7 +83,7 @@ public class PlayerWrapping : MonoBehaviour
         float newLineX = lineTransform.localPosition.x + lineSpeed * lineDirection * Time.deltaTime;
         lineTransform.localPosition = new Vector2(newLineX, lineTransform.localPosition.y);
 
-        if (!Input.GetKeyDown(KeyCode.Space)) { return; }
+        if (!Input.GetKeyDown(KeyCode.Space) && !Input.GetKeyDown(KeyCode.E) && !Input.GetMouseButtonDown(0)) { return; }
 
         if (newLineX >= spotPositionRange.x && newLineX <= spotPositionRange.y)
         {
@@ -92,7 +93,7 @@ public class PlayerWrapping : MonoBehaviour
             float newSpotWidth = spotTransform.rect.width - spotSizeDecrease;
             spotTransform.sizeDelta = new Vector2(newSpotWidth, spotTransform.sizeDelta.y);
 
-            // play sound - correct
+            AudioPlayer.Instance.PlaySoundEffect("correct");
 
             if (wrapProgress >= 100)
             {
@@ -109,7 +110,7 @@ public class PlayerWrapping : MonoBehaviour
 
             lineTransform.localPosition = new Vector2(barPositionRange.x, lineTransform.localPosition.y);
 
-            // play sound - miss
+            AudioPlayer.Instance.PlaySoundEffect("wrong");
         }
 
         GenerateRandomSpotPosition();
@@ -144,7 +145,7 @@ public class PlayerWrapping : MonoBehaviour
 
         currentMissDelay = 0.01f;
 
-        // play sound - looped wrapping
+        wrappingSound.Play();
 
         IsWrapping = true;
     }
@@ -159,7 +160,7 @@ public class PlayerWrapping : MonoBehaviour
         wrapProgress = 0;
         wrapProgressFillBar.fillAmount = 0;
 
-        // stop sound - looped wrapping
+        wrappingSound.Stop();
 
         IsWrapping = false;
     }

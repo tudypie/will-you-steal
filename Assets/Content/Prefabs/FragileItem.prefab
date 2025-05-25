@@ -74,7 +74,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4708126507028980574, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5420852699394627227, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
       propertyPath: m_Name
@@ -112,6 +112,10 @@ PrefabInstance:
       propertyPath: outlineColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8434267430673722974, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 8464301643890968868, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
       propertyPath: outlineColor.g
       value: 0.84313726
@@ -127,6 +131,10 @@ PrefabInstance:
     - target: {fileID: 8946971906079779254, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.503772
+      objectReference: {fileID: 0}
+    - target: {fileID: 8946971906079779254, guid: 2a8dbdd7c360d764ab8921718717b405, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.06
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

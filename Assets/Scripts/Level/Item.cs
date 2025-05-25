@@ -7,8 +7,9 @@ public class Item : MonoBehaviour
 {
     [SerializeField] private Transform modelTransform;
     [SerializeField] private Transform canvasTransform;
-    [SerializeField] private TMP_Text weightText;
+    [SerializeField] private TMP_Text statsText;
     [SerializeField] private TMP_Text noSpaceText;
+    [SerializeField] private GameObject interactIcon;
     [SerializeField] private Color outlineColor;
 
     [SerializeField, Space] private int weight;
@@ -16,6 +17,7 @@ public class Item : MonoBehaviour
 
     [SerializeField, Space] private bool canInteract = true;
     [SerializeField] private bool isFragile = false;
+    [SerializeField] private bool kinematicRb = false;
 
     private float canvasOffsetY;
 
@@ -47,17 +49,30 @@ public class Item : MonoBehaviour
         if (!modelTransform.TryGetComponent(out Rigidbody rb))
         {
             modelTransform.AddComponent<Rigidbody>();
+            modelTransform.GetComponent<Rigidbody>().isKinematic = kinematicRb;
+        }
+
+        if (isFragile)
+        {
+            outlineColor = Color.yellow;
+        }
+        else
+        {
+            outlineColor = Color.green;
         }
 
         outline.OutlineColor = outlineColor;
+        outline.OutlineMode = Outline.Mode.OutlineVisible;
+        outline.OutlineWidth = 1.2f;
         outline.enabled = false;
 
         collisionCheck.collisionLayer = LayerMask.GetMask("Ground");
         modelTransform.gameObject.layer = LayerMask.NameToLayer("Interactable");
 
-        weightText.text = $"{weight} kg / {value} $";
-        weightText.enabled = false;
+        statsText.text = $"{weight} kg / {value} $";
+        statsText.enabled = false;
         noSpaceText.enabled = false;
+        interactIcon.SetActive(false);
 
         canvasOffsetY = canvasTransform.position.y - modelTransform.position.y;
     }
@@ -85,15 +100,23 @@ public class Item : MonoBehaviour
 
     private void OnTouchGround()
     {
-        // play sound break
+        AudioPlayer.Instance.PlaySoundEffect("break");
 
-        Destroy(gameObject);
+        DisableItem();
+    }
+
+    private void DisableItem()
+    {
+        canvasTransform.gameObject.SetActive(false);
+        Destroy(modelTransform.gameObject);
+        enabled = false;
     }
 
     public void Focus()
     {
         outline.enabled = true;
-        weightText.enabled = true;
+        statsText.enabled = true;
+        interactIcon.SetActive(true);
 
         if (!PlayerManager.Inventory.HasSpace(weight))
         {
@@ -104,9 +127,13 @@ public class Item : MonoBehaviour
 
     public void LoseFocus()
     {
-        outline.enabled = false;
-        weightText.enabled = false;
-        noSpaceText.enabled = false;
+        if (modelTransform == null) { return; }
+
+        interactIcon.SetActive(false);
+
+        //outline.enabled = false;
+        //statsText.enabled = false;
+        //noSpaceText.enabled = false;
     }
 
     public void Interact()
@@ -130,9 +157,9 @@ public class Item : MonoBehaviour
     {
         PlayerManager.Inventory.AddItem(weight, value);
 
-        // play sound - pickup
+        AudioPlayer.Instance.PlaySoundEffect("pickup");
 
-        Destroy(gameObject);
+        DisableItem();
     }
 
     public void SetCanInteract(bool value) => canInteract = value;

@@ -1,6 +1,7 @@
-using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
     [SerializeField] private TMP_Text totalMoneyText;
+    [SerializeField] private Animator heistStartedAnim;
+    [SerializeField] private Button restartButton, quitButton;
+
+    [SerializeField, Space] private AudioSource policeSirenAudio;
+    [SerializeField] private AudioSource heistStartAlarm;
 
     private int totalMoneyAmount;
 
@@ -38,7 +44,10 @@ public class LevelManager : MonoBehaviour
 
         timer = countdownStartingValue;
 
-        countdownText.text = timer.ToString("00") + "s";
+        SetCountdownText();
+
+        restartButton.onClick.AddListener(Restart);
+        quitButton.onClick.AddListener(Quit);
     }
 
     private void Start()
@@ -51,6 +60,11 @@ public class LevelManager : MonoBehaviour
         if (levelHasEnded) { return; }
 
         UpdateCountdown();
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Restart();
+        }
     }
 
     private void UpdateCountdown()
@@ -59,12 +73,20 @@ public class LevelManager : MonoBehaviour
 
         timer -= Time.deltaTime;
 
-        countdownText.text = timer.ToString("00") + "s";
+        SetCountdownText();
+
+        float t = 1f - (timer / countdownStartingValue);
+        policeSirenAudio.volume = 0.5f * Mathf.Pow(t, 3);
 
         if (timer <= 0)
         {
             EndLevel();
         }
+    }
+
+    private void SetCountdownText()
+    {
+        countdownText.text = "Police ETA: " + timer.ToString("00") + "s";
     }
 
     private void EndLevel()
@@ -90,11 +112,27 @@ public class LevelManager : MonoBehaviour
 
     public void StartCountdown()
     {
+        if (CountdownHasStarted) { return; }
+
         countdownHasStarted = true;
+        heistStartedAnim.enabled = true;
+
+        policeSirenAudio.Play();
+        heistStartAlarm.Play();
     }
 
     public void AddMoney(int amount)
     {
         totalMoneyAmount += amount;
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene("Game");
+    }
+
+    public void Quit()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

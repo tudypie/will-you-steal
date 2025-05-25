@@ -11,7 +11,7 @@ public class TriggerCheck : MonoBehaviour
     {
         if ((triggerLayer.value & (1 << other.gameObject.layer)) != 0)
         {
-            OnTrigger.Invoke();
+            OnTrigger?.Invoke();
         }
     }
 }

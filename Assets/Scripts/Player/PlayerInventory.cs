@@ -93,12 +93,11 @@ public class PlayerInventory : MonoBehaviour
         PlayTextAnimation();
 
         Clear();
+        UpdateUI();
 
         guidingArrowTransform.gameObject.SetActive(false);
 
-
-
-        // play sound - drop items (cash)
+        AudioPlayer.Instance.PlaySoundEffect("money");
     }
 
     public bool HasSpace(int weight)
