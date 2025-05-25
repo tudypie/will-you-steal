@@ -1,4 +1,4 @@
-# VGJ-Choice-Game-2025
+# Will You Steal
 Unity Game made in 1 week for Vianu Game Jam 2025 where you have to steal from a museum.
 
 
