@@ -1,10 +1,10 @@
-using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private Transform modelTransform;
     [SerializeField] private Transform canvasTransform;
     [SerializeField] private TMP_Text statsText;
@@ -12,10 +12,10 @@ public class Item : MonoBehaviour
     [SerializeField] private GameObject interactIcon;
     [SerializeField] private Color outlineColor;
 
-    [SerializeField, Space] private int weight;
+    [Header("Settings")]
+    [SerializeField] private int weight;
     [SerializeField] private int value;
-
-    [SerializeField, Space] private bool canInteract = true;
+    [SerializeField] private bool canInteract = true;
     [SerializeField] private bool isFragile = false;
     [SerializeField] private bool isRbKinematic = false;
 

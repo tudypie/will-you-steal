@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private Transform raycastPoint;
     [SerializeField] private LayerMask interactionMask;
+
+    [Header("Settings")]
     [SerializeField] private float raycastSphereRadius = 2;
 
     private Item currentItem;

@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class SecurityCamera : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private Transform camTransform;
     [SerializeField] private TriggerCheck spottrigger;
+
+    [Header("Settings")]
     [SerializeField] private Vector2 rotationRange = new Vector2(-45f, 45f);
     [SerializeField] private float rotationSpeed = 30f;
     [SerializeField] private float waitDelay = 2f;

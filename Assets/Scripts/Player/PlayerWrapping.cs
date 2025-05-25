@@ -12,7 +12,7 @@ public class PlayerWrapping : MonoBehaviour
     [SerializeField] private AudioSource wrappingSound;
 
     [Header("Settings")]
-    [SerializeField, Space] private float progressPerSkillCheck;
+    [SerializeField] private float progressPerSkillCheck;
     [SerializeField] private float lineSpeed;
     [SerializeField] private float spotSizeDecrease;
     [SerializeField] private float missDelay;

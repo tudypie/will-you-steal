@@ -5,18 +5,19 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private float countdownStartingValue;
-    [SerializeField] private TMP_Text countdownText;
-
-    [SerializeField, Space] private GameObject endLevelPanel;
+    [Header("References")]
+    [SerializeField] private GameObject endLevelPanel;
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
     [SerializeField] private TMP_Text totalMoneyText;
-    [SerializeField] private Animator heistStartedAnim;
+    [SerializeField] private TMP_Text countdownText;
     [SerializeField] private Button restartButton, quitButton;
-
-    [SerializeField, Space] private AudioSource policeSirenAudio;
+    [SerializeField] private Animator heistStartedAnim;
+    [SerializeField] private AudioSource policeSirenAudio;
     [SerializeField] private AudioSource heistStartAlarm;
+
+    [Header("Settings")]
+    [SerializeField] private float countdownStartingValue;
 
     private int totalMoneyAmount;
 

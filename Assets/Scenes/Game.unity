@@ -68585,7 +68585,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecb10c25c8615364cab7be908c3082df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsWrapping: 0
   wrappingPanel: {fileID: 1257738335}
   barTransform: {fileID: 1561195727}
   lineTransform: {fileID: 472486005}
@@ -69184,7 +69183,7 @@ MonoBehaviour:
   inventorySpaceText: {fileID: 1763590739}
   playerCanvasText: {fileID: 1288468363}
   guidingArrowTransform: {fileID: 3132383809127268977}
-  carryLimit: 30
+  weightCarryLimit: 30
 --- !u!4 &6605138485187730367
 Transform:
   m_ObjectHideFlags: 0

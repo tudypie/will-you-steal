@@ -306,10 +306,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camTransform: {fileID: 8212771538929759135}
+  spottrigger: {fileID: 5783939635720062099}
   rotationRange: {x: -50, y: 50}
   rotationSpeed: 35
   waitDelay: 0.8
-  trigger: {fileID: 5783939635720062099}
 --- !u!4 &8212771538929759135 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -2021178655527167927, guid: 625deef51377fcc4cac53645bf488965, type: 3}

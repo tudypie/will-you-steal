@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private TMP_Text inventorySpaceText;
     [SerializeField] private TMP_Text playerCanvasText;
     [SerializeField] private Transform guidingArrowTransform;
+
+    [Header("Settings")]
     [SerializeField] private int weightCarryLimit;
 
     private int currentWeight;
