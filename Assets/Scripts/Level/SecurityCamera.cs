@@ -5,7 +5,7 @@ public class SecurityCamera : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform camTransform;
-    [SerializeField] private TriggerCheck spottrigger;
+    [SerializeField] private TriggerCheck spotTrigger;
 
     [Header("Settings")]
     [SerializeField] private Vector2 rotationRange = new Vector2(-45f, 45f);
@@ -28,12 +28,12 @@ public class SecurityCamera : MonoBehaviour
 
     private void OnEnable()
     {
-        spottrigger.OnTrigger += OnPlayerSpotted;
+        spotTrigger.OnTrigger += OnPlayerSpotted;
     }
 
     private void OnDisable()
     {
-        spottrigger.OnTrigger -= OnPlayerSpotted;
+        spotTrigger.OnTrigger -= OnPlayerSpotted;
     } 
 
     private void Update()
