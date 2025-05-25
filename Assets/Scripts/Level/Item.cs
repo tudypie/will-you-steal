@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -31,29 +30,26 @@ public class Item : MonoBehaviour
         // Rigidbody
         if (!modelTransform.TryGetComponent(out Rigidbody rb))
         {
-            modelTransform.AddComponent<Rigidbody>();
+            modelTransform.gameObject.AddComponent<Rigidbody>();
         }
 
         // Outline
         if (!modelTransform.TryGetComponent(out Outline modelOutline))
         {
-            modelTransform.AddComponent<Outline>();
-            outline = modelOutline;
+            modelTransform.gameObject.AddComponent<Outline>();
         }
 
         // Collision Check
         if (!modelTransform.TryGetComponent(out CollisionCheck col))
         {
-            modelTransform.AddComponent<CollisionCheck>();
-            collisionCheck = col;
+            modelTransform.gameObject.AddComponent<CollisionCheck>();
         }
 
         // Setup Rigidbody
         modelTransform.GetComponent<Rigidbody>().isKinematic = isRbKinematic;
 
         // Setup outline settings
-        if (outline == null) { outline = modelTransform.GetComponent<Outline>(); }
-
+        outline = modelTransform.GetComponent<Outline>();
         outlineColor = isFragile ? Color.yellow : Color.green;
         outline.OutlineColor = outlineColor;
         outline.OutlineWidth = 1.2f;
@@ -61,8 +57,7 @@ public class Item : MonoBehaviour
         outline.enabled = false;
 
         // Setup layers
-        if (collisionCheck == null) { collisionCheck = modelTransform.GetComponent<CollisionCheck>(); }
-
+        collisionCheck = modelTransform.GetComponent<CollisionCheck>();
         collisionCheck.collisionLayer = LayerMask.GetMask("Ground");
         modelTransform.gameObject.layer = LayerMask.NameToLayer("Interactable");
 

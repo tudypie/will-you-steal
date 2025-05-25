@@ -17,7 +17,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private AudioSource heistStartAlarm;
 
     [Header("Settings")]
-    [SerializeField] private float countdownStartingValue;
+    [SerializeField] private float countdownStartingValue = 90f;
+    [SerializeField] private float policeSirenMaxVolume = 0.4f;
 
     private int totalMoneyAmount;
 
@@ -77,7 +78,7 @@ public class LevelManager : MonoBehaviour
 
         // Make police siren volume increase exponentially
         float t = 1f - (timer / countdownStartingValue);
-        policeSirenAudio.volume = 0.5f * Mathf.Pow(t, 3);
+        policeSirenAudio.volume = policeSirenMaxVolume * Mathf.Pow(t, 3);
 
         if (timer <= 0)
         {
@@ -94,10 +95,7 @@ public class LevelManager : MonoBehaviour
     {
         levelHasEnded = true;
 
-        // Disable player scripts
-        PlayerManager.Wrapping.StopWrapping();
-        PlayerManager.Movement.enabled = false;
-        PlayerManager.Interaction.enabled = false;
+        PlayerManager.Instance.DisablePlayer();
 
         // Win or lose condition
         if (van.PlayerIsNearVan)

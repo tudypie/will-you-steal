@@ -10,11 +10,30 @@ public class PlayerManager : MonoBehaviour
 
     public static PlayerWrapping Wrapping;
 
+    public static PlayerManager Instance;
+
     private void Awake()
     {
+        // Singleton
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         Movement = GetComponent<PlayerMovement>();
         Interaction = GetComponent<PlayerInteraction>();
         Inventory = GetComponent<PlayerInventory>();
         Wrapping = GetComponent<PlayerWrapping>();
+    }
+
+    public void DisablePlayer()
+    {
+        Movement.enabled = false;
+        Interaction.enabled = false;
+        Wrapping.StopWrapping();
     }
 }
