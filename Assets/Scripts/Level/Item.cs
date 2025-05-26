@@ -9,7 +9,6 @@ public class Item : MonoBehaviour
     [SerializeField] private TMP_Text statsText;
     [SerializeField] private TMP_Text noSpaceText;
     [SerializeField] private GameObject interactIcon;
-    [SerializeField] private Color outlineColor;
 
     [Header("Settings")]
     [SerializeField] private int weight;
@@ -17,6 +16,8 @@ public class Item : MonoBehaviour
     [SerializeField] private bool canInteract = true;
     [SerializeField] private bool isFragile = false;
     [SerializeField] private bool isRbKinematic = false;
+    [SerializeField] private bool isOnStand = true;
+    [SerializeField] private Color outlineColor;
 
     private float canvasOffsetY;
 
@@ -71,29 +72,34 @@ public class Item : MonoBehaviour
 
     private void OnEnable()
     {
-        if (isFragile)
-        {
-            collisionCheck.OnCollision += OnTouchGround;
-        }
+        if (isOnStand) { collisionCheck.OnCollision += OnTouchGround; }
     }
 
     private void OnDisable()
     {
-        if (isFragile)
-        {
-            collisionCheck.OnCollision -= OnTouchGround;
-        }
+        if (isOnStand) { collisionCheck.OnCollision -= OnTouchGround; }
     }
 
     private void Update()
     {
+        // Update the canvas to always be above the model
         canvasTransform.position = new Vector3(modelTransform.position.x, modelTransform.position.y + canvasOffsetY, modelTransform.position.z);
     }
 
     private void OnTouchGround()
-    {   
-        AudioPlayer.Instance.PlaySoundEffect("break");
-        DisableItem();
+    {
+        Debug.Log(gameObject.name + " touched ground");
+
+        if (isFragile)
+        {
+            AudioPlayer.Instance.PlaySoundEffect("break");
+            DisableItem();
+        }
+
+        if (!LevelManager.Instance.CountdownHasStarted)
+        {
+            LevelManager.Instance.StartCountdown();
+        }
     }
 
     private void DisableItem()
