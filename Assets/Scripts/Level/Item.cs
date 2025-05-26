@@ -118,16 +118,13 @@ public class Item : MonoBehaviour
         if (!PlayerManager.Inventory.HasSpace(weight))
         {
             noSpaceText.enabled = true;
-            return;
         }
     }
 
     public void LoseFocus()
     {
         interactIcon.SetActive(false);
-        /*outline.enabled = false;
-        statsText.enabled = false;
-        noSpaceText.enabled = false;*/
+        noSpaceText.enabled = false;
     }
 
     public void Interact()

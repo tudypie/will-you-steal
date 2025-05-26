@@ -18891,7 +18891,7 @@ MonoBehaviour:
   policeSirenAudio: {fileID: 2110888873}
   heistStartAlarm: {fileID: 113044660}
   countdownStartingValue: 90
-  policeSirenMaxVolume: 0.4
+  policeSirenMaxVolume: 0.3
 --- !u!43 &550807766
 Mesh:
   m_ObjectHideFlags: 0

@@ -14751,8 +14751,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 58}
-  m_SizeDelta: {x: 1395.6, y: 578}
+  m_AnchoredPosition: {x: 0, y: 69.2}
+  m_SizeDelta: {x: 1410.8, y: 578}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &478777358
 MonoBehaviour:
@@ -14821,21 +14821,23 @@ MonoBehaviour:
   m_text: 'I will run you through the basics of a heist.
 
 
-    Once you pick up an
-    item or get spotted by one of the cameras the police will get alerted and arrive
-    in ~90s. That means that you won''t have time to steal everything. You have to
-    CHOOSE what to steal.
+    Before starting your
+    heist inspect the items in the museum and identify the expensive ones. The choice
+    is yours.
 
 
-    Before starting your heist inspect the items in the
-    museum and remember the expensive ones. The choice is yours. Remeber to cover
-    fragile items in air bubble wrap so they don''t break! Also try to avoid knocking
-    over items.
+    Once you get spotted by one of the cameras, pick up an item,
+    or accidentally knock down one, the police will get alerted. That means that
+    you won''t have time to steal everything. You have to CHOOSE what to steal.
 
 
-    When your bag gets full return to the van to drop items. Oh
-    and make sure to be NEXT to the VAN when the police arrives. Don''t let them
-    catch you!'
+    Remeber
+    to cover fragile items in air bubble wrap so they don''t break!
+
+
+    When your
+    bag gets full return to the van to drop items. Oh and make sure to be NEXT to
+    the VAN when the police arrives. Don''t let them catch you!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a93848653defce4e993db18088bf5c8, type: 2}
   m_sharedMaterial: {fileID: -3574793451440992201, guid: 6a93848653defce4e993db18088bf5c8, type: 2}
@@ -29928,7 +29930,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -304}
+  m_AnchoredPosition: {x: 0, y: -321.2}
   m_SizeDelta: {x: 1048.8, y: 96.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &899266040
@@ -56725,7 +56727,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1770395653}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b0610405e0dd1644954b200294a4e40, type: 3}
+  m_Script: {fileID: 11500000, guid: d95e0015e45510144a3f07e5c5859886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!43 &1773316174
