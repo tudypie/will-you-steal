@@ -15,6 +15,8 @@ You play as a thief stealing from a museum while the clock counts down and polic
 
 You sneak through a museum and identify valuable items. Once you're spotted, the heist begins and you have to steal as much as possible before time runs out.
 
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/b6d71061-7406-4a53-8266-93ffa001d0d4" />
+
 ---
 
 ## 🔁 Core Gameplay Loop
