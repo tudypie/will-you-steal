@@ -8,6 +8,9 @@ You play as a thief stealing from a museum while the clock counts down and polic
 
 ---
 
+## Made for Vianu Game Jam - Second Place
+<img width="2000" height="1414" alt="Premiul 2 Tudor Ghican - Game Jam" src="https://github.com/user-attachments/assets/fcedd658-cafb-4589-ac82-9775b66b18d2" />
+
 ## 🎮 Gameplay Overview
 
 You sneak through a museum and identify valuable items. Once you're spotted, the heist begins and you have to steal as much as possible before time runs out.
