@@ -52,6 +52,8 @@ As the timer hits zero, the police arrive. If you’re not at the van in time, y
 ### Textures
 - From [ambientCG](https://ambientcg.com/)
 
+### [Download link for large museum models](https://mega.nz/folder/iHIHmBLZ#ZdHQgvieQOcu40IzfL6fWA)
+
 ### Audio
 - **Music:** Ihor Koliako from Pixabay  
 - **Sound Effects:** Pixabay, Zapsplat
